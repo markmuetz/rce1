@@ -1,0 +1,90 @@
+\documentclass{article}
+
+% Some useful packages.
+\usepackage{amsmath}
+\usepackage{siunitx}
+\usepackage{graphicx}
+\usepackage{verbatim}
+\usepackage{mhchem}
+\usepackage{textcomp}
+\usepackage{courier}
+\usepackage{listings}
+
+% Reduces margins substantially.
+\usepackage{geometry}
+\newgeometry{margin=2.5cm}
+
+% Allows headers and footers.
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+% Get rid of annoying line under header.
+\renewcommand{\headrulewidth}{0pt}
+
+\newcommand{\ts}{\textsuperscript}
+
+\lhead{}
+\chead{}
+\rhead{}
+
+\lstset{
+    basicstyle=\ttfamily,
+}
+
+\begin{document}
+
+\section*{16/03/2016: RCE Investigation of Convective Cloud Spectrum}
+
+\subsection*{Goals}
+
+\begin{itemize}
+    \item To learn how to pose meaningful scientific questions and set about answering them.
+    \item To get experience in running the Idealized UM and analysing its output.
+\end{itemize}
+
+\subsection*{Questions to be addressed:}
+
+\begin{enumerate}
+    \item How resolution affects cloud spectrum statistics.
+    \item How closely parameterized models match Cloud Resolving Models (CRMs).
+    \item What happens when convection parameterization is run at CRM resolution.
+\end{enumerate}
+
+When addressing question 1, I will need to use diagnostic tools for determining cloud cells and
+tracking these over time. Of interest will be: cell lifetime, cell lifecycle, number of cells,
+statistics of cell spectrum and total cell mass flux (upwards and downwards). Another facet of the
+study could involve looking at how these statistics are affected by performing the same analyses at
+downscaled resolutions (e.g. $2 \Delta x$). 
+
+Question 2 will build on question 1 by analysing how a parameterized model compares to a CRM when
+the CRM is downscaled to the same resolution as the parameterized model. In particular, whether the
+parameterized mass-flux matches the diagnosed mass-flux from the CRM, and how the flow in the
+parameterized model matches the downscaled CRM flow. The latter could be done by comparing the
+spectral decomposition of the respective flows.
+
+In question 3 I will see how the overuse of parameterization impacts on a CRM resolution model. The
+aim will be to shed some light on the way the parameterization interacts with the model dynamics
+when both are effectively modelling the same phenomenon.
+
+\subsection*{Hypotheses to be tested:}
+
+\begin{itemize}
+    \item \textbf{Energy balance:} Total surface heat flux should balance OLR.
+    \item \textbf{Moisture balance:} Latent heat flux should balance precipitation.
+    \item \textbf{Convergence:} Whether cell statistics converge when going to higher resolutions.
+\end{itemize}
+
+\subsection*{Model setup and runs}
+
+The model used will be the Idealized UM (IdUM), version 10.3(4?). The model will be run with
+interactive radiation, over a sea held at around \SI{300}{K}, with bi-periodic boundary conditions,
+over a domain of \SI{60}{km} x \SI{60}{km}. Models will be run until a steady-state is reached, and
+then for an additional time period to allow gathering of statistics (how long? considerations?).
+High resolution runs without convective parameterization will be run at $\Delta x = $ \SI{200}{m},
+\SI{300}{m} and \SI{400}{m} to allow for a comparison of resolutions and to check for convergence.
+Parameterized runs will be done at $\Delta x = $ \SI{200}{m} and \SI{12}{km}, representing the
+over-parameterized run and the sensibly parameterized run respectively. 
+
+The Smagorinksy turbulence parameterization will be used throughout. (? check this.)
+
+\end{document}
+
